@@ -16,6 +16,8 @@ function HomePage() {
         setPosts(fillteredPosts);
         setTotalPosts(fillteredPosts.length);
     }
+
+    // Mengambil Api
     useEffect (() => {
         fetch("https://jsonplaceholder.typicode.com/posts")
         .then((response) => response.json())
