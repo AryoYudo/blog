@@ -1,15 +1,11 @@
-// const ArticleStatus = (isNew) => {
-//     console.log(isNew)
-//     if (isNew == true){
-//         return <span>-Baru</span>
-//     }else{
-//     }
-// };
+import { useContext } from "react";
+import { GlobalContext } from "../context";
 
 const NewArticel = () => {
     return <span> --Baru !! </span>;
 };
 function Article (props){
+    const user = useContext(GlobalContext);
     console.log(props.isNew);
     return(
         <>
@@ -19,6 +15,9 @@ function Article (props){
                 {/* <ArticleStatus isNew={props.isNew}/> */}
                 {props.isNew ? <NewArticel /> : "--Lama" }
             </small>
+            <div>
+                <small>Ditulis Oleh {user.username}</small>
+            </div>
         </>
     );
 }

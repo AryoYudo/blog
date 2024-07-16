@@ -7,6 +7,7 @@ import Search from '../components/Search';
 function HomePage() {    
     const [posts, setPosts] = useState(postsData);
     const [totalPosts, setTotalPosts] = useState();
+    const [externalPosts, setExtenalPosts] = useState([]);
 
     const ChangeSearch = (value) => {
         const fillteredPosts = posts.filter((item) => 
@@ -15,13 +16,14 @@ function HomePage() {
         setPosts(fillteredPosts);
         setTotalPosts(fillteredPosts.length);
     }
-    useEffect (() =>{
-        console.log("render")
-        
-        return () => {
-            console.log("Clean up...")
-        }
-        
+    useEffect (() => {
+        fetch("https://jsonplaceholder.typicode.com/posts")
+        .then((response) => response.json())
+        .then((json) => setExtenalPosts(json));
+    }, []);
+
+    useEffect(() => {
+        console.log("ada posts baru")
     }, []);
 
     return (
@@ -30,6 +32,11 @@ function HomePage() {
             <Search ChangeSearch={ChangeSearch} totalPosts={totalPosts}/>
             {posts.map(({title, tags, date, isNew}, index) => (
                 <Article {...{title, tags , date, isNew}} key={index}/>
+            ))}
+            <hr />
+            <h2>External Posts</h2>
+            {externalPosts.map((item, index) => (
+                <div key={index}>- {item.title}</div>
             ))}
         </>
     );
