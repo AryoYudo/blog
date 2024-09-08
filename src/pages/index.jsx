@@ -5,9 +5,9 @@ import Search from '../components/Search';
 
 
 function HomePage() {    
-    const [posts, setPosts] = useState(postsData);
     const [totalPosts, setTotalPosts] = useState();
-    const [externalPosts, setExtenalPosts] = useState([]);
+    const [posts, setPosts] = useState(postsData);
+
 
     const ChangeSearch = (value) => {
         const fillteredPosts = posts.filter((item) => 
@@ -17,12 +17,6 @@ function HomePage() {
         setTotalPosts(fillteredPosts.length);
     }
 
-    // Mengambil Api
-    useEffect (() => {
-        fetch("https://jsonplaceholder.typicode.com/posts")
-        .then((response) => response.json())
-        .then((json) => setExtenalPosts(json));
-    }, []);
 
     useEffect(() => {
         console.log("ada posts baru")
@@ -37,9 +31,6 @@ function HomePage() {
             ))}
             <hr />
             <h2>External Posts</h2>
-            {externalPosts.map((item, index) => (
-                <div key={index}>- {item.title}</div>
-            ))}
         </>
     );
 }
